@@ -2,11 +2,12 @@
   <x:Members>
     <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
     <x:Property Name="in_dt_MailMap" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1232,827</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1103,827</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SendEmail_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -80,9 +81,9 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message - Start SendEmail" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start SendEmail&quot;]" />
-    <If Condition="[in_dt_MailMap.AsEnumerable.Where( Function (c) c(&quot;Nume Prenume&quot;).ToString = in_TransactionItem.SpecificContent(&quot;Person&quot;).ToString).ToList.Count = 0]" sap:VirtualizedContainerService.HintSize="484,247" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[in_dt_MailMap.AsEnumerable.Where( Function (c) c(&quot;Nume Prenume&quot;).ToString = in_TransactionItem.SpecificContent(&quot;Person&quot;).ToString).ToList.Count = 0]" DisplayName="If Email Exist" sap:VirtualizedContainerService.HintSize="484,247" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <Throw DisplayName="Throw No Mail" Exception="[new BusinessRuleException(&quot;No Mail&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        <Throw DisplayName="Throw No Mail" Exception="[new BusinessRuleException(in_Config(&quot;businessRuleException&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
       </If.Then>
       <If.Else>
         <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
